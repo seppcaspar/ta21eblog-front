@@ -1,21 +1,16 @@
 <script setup>
 import { ref } from 'vue';
-import axios from 'axios';
-axios.defaults.withCredentials = true;
-axios.defaults.withXSRFToken = true;
-try {
-    let response = await axios.get('http://localhost:8000/api/user');
-} catch(err){
+import { useAuthStore } from '../stores/auth.js';
+import { useRouter } from 'vue-router'
 
-}
+const router = useRouter()
+
+const auth = useAuthStore()
 let email = ref('');
 let password = ref('');
 async function login(){
-    let response = await axios.get('http://localhost:8000/sanctum/csrf-cookie');
-    response = await axios.post('http://localhost:8000/api/login', {
-            email: email.value,
-            password: password.value
-    });
+    await auth.login(email.value, password.value);
+    router.push('/');
 }
 </script>
 <template>

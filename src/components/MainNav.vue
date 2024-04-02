@@ -1,3 +1,7 @@
+<script setup>
+import { useAuthStore } from '../stores/auth.js';
+const auth = useAuthStore()
+</script>
 <template>
     <b-navbar>
         <template #brand>
@@ -18,7 +22,12 @@
         </template>
 
         <template #end>
-            <b-navbar-item tag="div">
+            <b-navbar-dropdown :label="auth.user.name" v-if="auth.user">
+                <b-navbar-item @click="auth.logout()">
+                    Logout
+                </b-navbar-item>
+            </b-navbar-dropdown>
+            <b-navbar-item tag="div" v-else>
                 <div class="buttons">
                     <a class="button is-primary">
                         <strong>Sign up</strong>

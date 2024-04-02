@@ -1,5 +1,6 @@
 import { createApp } from 'vue';
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router';
+import { createPinia } from 'pinia';
 
 import './style.css';
 import Buefy from '@ntohq/buefy-next';
@@ -27,7 +28,11 @@ const router = createRouter({
     history: createWebHistory(),
     routes, // short for `routes: routes`
 });
+
+const pinia = createPinia();
+
 const app = createApp(App);
 app.use(router);
 app.use(Buefy);
+app.use(pinia);
 app.mount('#app');
